@@ -419,8 +419,8 @@
                 const text = document.createElement('span');
                 text.textContent = item.short;
 
-                // Calculate angle to center of this segment
-                const angleRad = ((index * segmentAngle) + (segmentAngle / 2) - 90) * (Math.PI / 180);
+                // Calculate angle to center of this segment (offset by 180 to align with conic-gradient from -90deg)
+                const angleRad = ((index * segmentAngle) + (segmentAngle / 2) - 180) * (Math.PI / 180);
                 const x = 50 + (radius * 100 * Math.cos(angleRad));
                 const y = 50 + (radius * 100 * Math.sin(angleRad));
 
