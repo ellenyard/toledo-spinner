@@ -424,8 +424,8 @@
                 const x = 50 + (radius * 100 * Math.cos(angleRad));
                 const y = 50 + (radius * 100 * Math.sin(angleRad));
 
-                // Rotate text 90 degrees to read along the segment length
-                const textRotation = (index * segmentAngle) + (segmentAngle / 2) + 90;
+                // Rotate text to read radially along the segment (center to edge)
+                const textRotation = (index * segmentAngle) + (segmentAngle / 2);
                 text.style.left = `${x}%`;
                 text.style.top = `${y}%`;
                 text.style.transform = `translate(-50%, -50%) rotate(${textRotation}deg)`;
