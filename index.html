@@ -19,15 +19,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             color: #fff;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -36,9 +36,9 @@
         }
 
         .subtitle {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #8892b0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -46,19 +46,19 @@
 
         .category-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 8px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .category-btn {
-            padding: 12px 28px;
+            padding: 10px 24px;
             border: 2px solid #d4af37;
             background: transparent;
             color: #d4af37;
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -79,18 +79,18 @@
 
         .wheel-container {
             position: relative;
-            width: 380px;
-            height: 380px;
+            width: 420px;
+            height: 420px;
             margin-bottom: 20px;
         }
 
         @media (max-width: 500px) {
             .wheel-container {
-                width: 300px;
-                height: 300px;
+                width: 320px;
+                height: 320px;
             }
             h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
         }
 
@@ -114,53 +114,38 @@
             left: 50%;
             top: 50%;
             transform-origin: 0% 0%;
-            overflow: hidden;
-        }
-
-        .wheel-segment-inner {
-            position: absolute;
-            left: -100%;
-            top: -100%;
-            width: 200%;
-            height: 200%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 8px;
+            overflow: visible;
         }
 
         .wheel-segment span {
+            position: absolute;
+            left: 50%;
+            top: -10px;
             color: #fff;
-            font-size: 0.5rem;
-            font-weight: 500;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            max-height: 140px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
             white-space: nowrap;
-            letter-spacing: 0.5px;
+            transform-origin: left center;
+            letter-spacing: 0.3px;
         }
 
         @media (max-width: 500px) {
             .wheel-segment span {
-                font-size: 0.4rem;
-                max-height: 100px;
+                font-size: 0.45rem;
             }
         }
 
         .pointer {
             position: absolute;
-            top: -15px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 16px solid transparent;
-            border-right: 16px solid transparent;
-            border-top: 32px solid #d4af37;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 28px solid #d4af37;
             z-index: 10;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
@@ -170,8 +155,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
             border-radius: 50%;
             display: flex;
@@ -183,7 +168,7 @@
             border: none;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #1a1a2e;
@@ -201,57 +186,53 @@
 
         @media (max-width: 500px) {
             .center-btn {
-                width: 70px;
-                height: 70px;
-                font-size: 0.85rem;
+                width: 65px;
+                height: 65px;
+                font-size: 0.8rem;
             }
         }
 
         .result-container {
             text-align: center;
-            min-height: 100px;
+            min-height: 80px;
         }
 
         .result-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #8892b0;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+        }
+
+        .result-link {
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .result-link:hover .result-name {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .result-link:hover .result-location::after {
+            content: ' - tap to view';
+            opacity: 0.7;
         }
 
         .result-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 600;
             color: #d4af37;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .result-location {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #ccd6f6;
             font-weight: 300;
-        }
-
-        .spin-again-btn {
-            margin-top: 15px;
-            padding: 10px 25px;
-            background: transparent;
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .spin-again-btn:hover {
-            background: rgba(212, 175, 55, 0.1);
         }
 
         .hidden {
@@ -259,8 +240,8 @@
         }
 
         .footer {
-            margin-top: 20px;
-            font-size: 0.7rem;
+            margin-top: 15px;
+            font-size: 0.65rem;
             color: #4a5568;
             text-align: center;
         }
@@ -285,9 +266,10 @@
     <div class="result-container">
         <div id="resultDisplay" class="hidden">
             <p class="result-label">You're going to</p>
-            <p class="result-name" id="resultName"></p>
-            <p class="result-location" id="resultLocation"></p>
-            <button class="spin-again-btn" id="spinAgainBtn">Spin Again</button>
+            <a id="resultLink" class="result-link" href="#" target="_blank">
+                <p class="result-name" id="resultName"></p>
+                <p class="result-location" id="resultLocation"></p>
+            </a>
         </div>
     </div>
 
@@ -296,82 +278,82 @@
     <script>
         const venues = {
             brunch: [
-                { name: "Manhattan's Pub 'N Cheer", location: "Downtown" },
-                { name: "Brim House", location: "Downtown" },
-                { name: "Black Kite Coffee", location: "Downtown" },
-                { name: "House of Coffee Toledo", location: "Downtown" },
-                { name: "City Egg", location: "Downtown" },
-                { name: "Souk Mediterranean", location: "Downtown" },
-                { name: "Registry Bistro", location: "Downtown" },
-                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
-                { name: "Basil Pizza + Wine Bar", location: "Perrysburg" },
-                { name: "The Flying Joe", location: "Perrysburg" },
-                { name: "Maddie & Bella Coffee", location: "Perrysburg" },
-                { name: "Inside The Five", location: "Perrysburg" },
-                { name: "Grape Leaf Diner", location: "Maumee" },
-                { name: "The Original Pancake House", location: "Westgate" },
-                { name: "Sunrise Skillet", location: "South Toledo" },
-                { name: "Hang Over Easy", location: "Sylvania" },
-                { name: "Marigold Cafe", location: "Old Orchard" },
-                { name: "Balance Grille", location: "Sylvania" },
-                { name: "The Whitehouse Inn", location: "Whitehouse" },
-                { name: "Doc Watson's", location: "Sylvania" },
-                { name: "Public House", location: "Perrysburg" },
-                { name: "Barry Bagels", location: "West Toledo" },
-                { name: "Monroe Street Diner", location: "Westgate" },
-                { name: "Schmucker's", location: "West Toledo" }
+                { name: "Manhattan's Pub 'N Cheer", short: "Manhattan's", location: "Downtown" },
+                { name: "Brim House", short: "Brim House", location: "Downtown" },
+                { name: "Black Kite Coffee", short: "Black Kite", location: "Downtown" },
+                { name: "House of Coffee Toledo", short: "House of Coffee", location: "Downtown" },
+                { name: "City Egg", short: "City Egg", location: "Downtown" },
+                { name: "Souk Mediterranean", short: "Souk", location: "Downtown" },
+                { name: "Registry Bistro", short: "Registry", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", short: "Maumee Bay", location: "Downtown" },
+                { name: "Basil Pizza + Wine Bar", short: "Basil", location: "Perrysburg" },
+                { name: "The Flying Joe", short: "Flying Joe", location: "Perrysburg" },
+                { name: "Maddie & Bella Coffee", short: "Maddie & Bella", location: "Perrysburg" },
+                { name: "Inside The Five", short: "Inside The 5", location: "Perrysburg" },
+                { name: "Grape Leaf Diner", short: "Grape Leaf", location: "Maumee" },
+                { name: "The Original Pancake House", short: "Pancake House", location: "Westgate" },
+                { name: "Sunrise Skillet", short: "Sunrise Skillet", location: "South Toledo" },
+                { name: "Hang Over Easy", short: "Hang Over Easy", location: "Sylvania" },
+                { name: "Marigold Cafe", short: "Marigold", location: "Old Orchard" },
+                { name: "Balance Grille", short: "Balance", location: "Sylvania" },
+                { name: "The Whitehouse Inn", short: "Whitehouse Inn", location: "Whitehouse" },
+                { name: "Doc Watson's", short: "Doc Watson's", location: "Sylvania" },
+                { name: "Public House", short: "Public House", location: "Perrysburg" },
+                { name: "Barry Bagels", short: "Barry Bagels", location: "West Toledo" },
+                { name: "Monroe Street Diner", short: "Monroe St Diner", location: "Westgate" },
+                { name: "Schmucker's", short: "Schmucker's", location: "West Toledo" }
             ],
             dinner: [
-                { name: "The Dark Horse Social Club", location: "Downtown" },
-                { name: "Souk Mediterranean", location: "Downtown" },
-                { name: "Sabira", location: "Downtown" },
-                { name: "Hannon's Block", location: "Downtown" },
-                { name: "The Heights", location: "Downtown" },
-                { name: "Registry Bistro", location: "Downtown" },
-                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
-                { name: "Element 112", location: "Downtown" },
-                { name: "Claude's Prime Seafood", location: "Perrysburg" },
-                { name: "The Benchmark", location: "Perrysburg" },
-                { name: "Urban Pine Winery", location: "Maumee" },
-                { name: "Basil Pizza + Wine Bar", location: "Perrysburg" },
-                { name: "Barr's Public House", location: "Perrysburg" },
-                { name: "Grape Leaf", location: "Maumee" },
-                { name: "Inside The Five", location: "Perrysburg" },
-                { name: "El Vaquero", location: "Perrysburg" },
-                { name: "Georgio's Grill", location: "Sylvania" },
-                { name: "Deet's BBQ", location: "Maumee" },
-                { name: "Zia's", location: "West Toledo" },
-                { name: "Balance Pan-Asian Grille", location: "Sylvania" },
-                { name: "Grumpy's", location: "West Toledo" },
-                { name: "Nagoya Japanese Steakhouse", location: "Maumee" },
-                { name: "The Chop House", location: "Perrysburg" },
-                { name: "Real Seafood Company", location: "Downtown" }
+                { name: "The Dark Horse Social Club", short: "Dark Horse", location: "Downtown" },
+                { name: "Souk Mediterranean", short: "Souk", location: "Downtown" },
+                { name: "Sabira", short: "Sabira", location: "Downtown" },
+                { name: "Hannon's Block", short: "Hannon's", location: "Downtown" },
+                { name: "The Heights", short: "The Heights", location: "Downtown" },
+                { name: "Registry Bistro", short: "Registry", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", short: "Maumee Bay", location: "Downtown" },
+                { name: "Element 112", short: "Element 112", location: "Downtown" },
+                { name: "Claude's Prime Seafood", short: "Claude's", location: "Perrysburg" },
+                { name: "The Benchmark", short: "Benchmark", location: "Perrysburg" },
+                { name: "Urban Pine Winery", short: "Urban Pine", location: "Maumee" },
+                { name: "Basil Pizza + Wine Bar", short: "Basil", location: "Perrysburg" },
+                { name: "Barr's Public House", short: "Barr's", location: "Perrysburg" },
+                { name: "Grape Leaf", short: "Grape Leaf", location: "Maumee" },
+                { name: "Inside The Five", short: "Inside The 5", location: "Perrysburg" },
+                { name: "El Vaquero", short: "El Vaquero", location: "Perrysburg" },
+                { name: "Georgio's Grill", short: "Georgio's", location: "Sylvania" },
+                { name: "Deet's BBQ", short: "Deet's BBQ", location: "Maumee" },
+                { name: "Zia's", short: "Zia's", location: "West Toledo" },
+                { name: "Balance Pan-Asian Grille", short: "Balance", location: "Sylvania" },
+                { name: "Grumpy's", short: "Grumpy's", location: "West Toledo" },
+                { name: "Nagoya Japanese Steakhouse", short: "Nagoya", location: "Maumee" },
+                { name: "The Chop House", short: "Chop House", location: "Perrysburg" },
+                { name: "Real Seafood Company", short: "Real Seafood", location: "Downtown" }
             ],
             drinks: [
-                { name: "The Heights Rooftop", location: "Downtown" },
-                { name: "Bellwether at Toledo Spirits", location: "Downtown" },
-                { name: "The Wine Room Speakeasy", location: "Downtown" },
-                { name: "Brew House Downtown", location: "Downtown" },
-                { name: "Hannon's Block Speakeasy", location: "Downtown" },
-                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
-                { name: "The Attic on Adams", location: "Downtown" },
-                { name: "Whiskey & The Wolf", location: "Downtown" },
-                { name: "Levi & Lilac's Whiskey Room", location: "Downtown" },
-                { name: "Red Moon", location: "Downtown" },
-                { name: "The Basement Geekeasy", location: "Downtown" },
-                { name: "Volstead Bar", location: "Downtown" },
-                { name: "Rabbit Hole", location: "Downtown" },
-                { name: "Toast and Tap", location: "Downtown" },
-                { name: "Peacock Cafe", location: "Downtown" },
-                { name: "Inside The Five", location: "Perrysburg" },
-                { name: "Urban Pine Winery", location: "Maumee" },
-                { name: "Inside The Five", location: "Sylvania" },
-                { name: "Black Frog Brewery", location: "Holland" },
-                { name: "The Casual Pint", location: "Perrysburg" },
-                { name: "Bier Stube", location: "Maumee" },
-                { name: "Bab's Underground", location: "Downtown" },
-                { name: "Earnest Brew Works", location: "Downtown" },
-                { name: "Farnsworth Cocktail Bar", location: "Downtown" }
+                { name: "The Heights Rooftop", short: "The Heights", location: "Downtown" },
+                { name: "Bellwether at Toledo Spirits", short: "Bellwether", location: "Downtown" },
+                { name: "The Wine Room Speakeasy", short: "Wine Room", location: "Downtown" },
+                { name: "Brew House Downtown", short: "Brew House", location: "Downtown" },
+                { name: "Hannon's Block Speakeasy", short: "Hannon's", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", short: "Maumee Bay", location: "Downtown" },
+                { name: "The Attic on Adams", short: "Attic on Adams", location: "Downtown" },
+                { name: "Whiskey & The Wolf", short: "Whiskey & Wolf", location: "Downtown" },
+                { name: "Levi & Lilac's Whiskey Room", short: "Levi & Lilac's", location: "Downtown" },
+                { name: "Red Moon", short: "Red Moon", location: "Downtown" },
+                { name: "The Basement Geekeasy", short: "Geekeasy", location: "Downtown" },
+                { name: "Volstead Bar", short: "Volstead", location: "Downtown" },
+                { name: "Rabbit Hole", short: "Rabbit Hole", location: "Downtown" },
+                { name: "Toast and Tap", short: "Toast & Tap", location: "Downtown" },
+                { name: "Peacock Cafe", short: "Peacock", location: "Downtown" },
+                { name: "Inside The Five", short: "Inside The 5", location: "Perrysburg" },
+                { name: "Urban Pine Winery", short: "Urban Pine", location: "Maumee" },
+                { name: "Inside The Five", short: "Inside The 5", location: "Sylvania" },
+                { name: "Black Frog Brewery", short: "Black Frog", location: "Holland" },
+                { name: "The Casual Pint", short: "Casual Pint", location: "Perrysburg" },
+                { name: "Bier Stube", short: "Bier Stube", location: "Maumee" },
+                { name: "Bab's Underground", short: "Bab's", location: "Downtown" },
+                { name: "Earnest Brew Works", short: "Earnest Brew", location: "Downtown" },
+                { name: "Farnsworth Cocktail Bar", short: "Farnsworth", location: "Downtown" }
             ]
         };
 
@@ -408,10 +390,10 @@
 
         const wheel = document.getElementById('wheel');
         const spinBtn = document.getElementById('spinBtn');
-        const spinAgainBtn = document.getElementById('spinAgainBtn');
         const resultDisplay = document.getElementById('resultDisplay');
         const resultName = document.getElementById('resultName');
         const resultLocation = document.getElementById('resultLocation');
+        const resultLink = document.getElementById('resultLink');
         const categoryBtns = document.querySelectorAll('.category-btn');
 
         function createWheel(category) {
@@ -436,19 +418,19 @@
                 segment.className = 'wheel-segment';
                 const rotation = index * segmentAngle;
                 segment.style.transform = `rotate(${rotation}deg)`;
-                segment.style.clipPath = `polygon(0 0, 100% 0, 100% ${Math.tan(segmentAngle * Math.PI / 360) * 100}%)`;
-
-                const inner = document.createElement('div');
-                inner.className = 'wheel-segment-inner';
-                inner.style.transform = `rotate(${segmentAngle / 2}deg)`;
 
                 const text = document.createElement('span');
-                text.textContent = item.name;
-                inner.appendChild(text);
-                segment.appendChild(inner);
+                text.textContent = item.short;
+                text.style.transform = `rotate(${segmentAngle / 2}deg)`;
+                segment.appendChild(text);
 
                 wheel.appendChild(segment);
             });
+        }
+
+        function getGoogleMapsUrl(name, location) {
+            const query = encodeURIComponent(`${name} ${location} Toledo Ohio`);
+            return `https://www.google.com/maps/search/?api=1&query=${query}`;
         }
 
         function spin() {
@@ -475,6 +457,7 @@
 
                 resultName.textContent = winner.name;
                 resultLocation.textContent = winner.location;
+                resultLink.href = getGoogleMapsUrl(winner.name, winner.location);
                 resultDisplay.classList.remove('hidden');
 
                 isSpinning = false;
@@ -501,7 +484,6 @@
         }
 
         spinBtn.addEventListener('click', spin);
-        spinAgainBtn.addEventListener('click', spin);
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', () => changeCategory(btn.dataset.category));
         });
