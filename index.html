@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toledo Eats & Drinks Spinner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #8892b0;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .category-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 14px 32px;
+            border: 2px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .category-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+            color: #1a1a2e;
+            border-color: #d4af37;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .wheel-container {
+                width: 320px;
+                height: 320px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            box-shadow:
+                0 0 0 8px #d4af37,
+                0 0 0 12px #1a1a2e,
+                0 0 40px rgba(212, 175, 55, 0.3),
+                inset 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            left: 50%;
+            top: 50%;
+            transform-origin: 0% 0%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            font-size: 0.55rem;
+            font-weight: 500;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+
+        .wheel-segment span {
+            transform: rotate(7.5deg);
+            text-align: right;
+            max-width: 120px;
+            line-height: 1.2;
+            font-size: 0.6rem;
+        }
+
+        @media (max-width: 600px) {
+            .wheel-segment span {
+                font-size: 0.45rem;
+                max-width: 80px;
+            }
+        }
+
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #d4af37;
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 5;
+        }
+
+        .center-circle::after {
+            content: '419';
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .spin-btn {
+            padding: 18px 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+            border: none;
+            color: #1a1a2e;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .spin-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-container {
+            margin-top: 40px;
+            text-align: center;
+            min-height: 120px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: #8892b0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .result-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+
+        .result-location {
+            font-size: 0.95rem;
+            color: #ccd6f6;
+            font-weight: 300;
+        }
+
+        .spin-again-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .spin-again-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: #4a5568;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Where To?</h1>
+    <p class="subtitle">Toledo's Local Favorites</p>
+
+    <div class="category-selector">
+        <button class="category-btn active" data-category="brunch">Brunch</button>
+        <button class="category-btn" data-category="dinner">Dinner</button>
+        <button class="category-btn" data-category="drinks">Drinks</button>
+    </div>
+
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+        <div class="center-circle"></div>
+    </div>
+
+    <button class="spin-btn" id="spinBtn">Spin</button>
+
+    <div class="result-container">
+        <div id="resultDisplay" class="hidden">
+            <p class="result-label">You're going to</p>
+            <p class="result-name" id="resultName"></p>
+            <p class="result-location" id="resultLocation"></p>
+            <button class="spin-again-btn" id="spinAgainBtn">Spin Again</button>
+        </div>
+    </div>
+
+    <p class="footer">Made with love in Toledo</p>
+
+    <script>
+        const venues = {
+            brunch: [
+                { name: "Manhattan's Pub 'N Cheer", location: "Downtown" },
+                { name: "Brim House", location: "Downtown" },
+                { name: "Black Kite Coffee", location: "Downtown" },
+                { name: "House of Coffee Toledo", location: "Downtown" },
+                { name: "City Egg", location: "Downtown" },
+                { name: "Souk Mediterranean", location: "Downtown" },
+                { name: "Registry Bistro", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
+                { name: "Basil Pizza + Wine Bar", location: "Perrysburg" },
+                { name: "The Flying Joe", location: "Perrysburg" },
+                { name: "Maddie & Bella Coffee", location: "Perrysburg" },
+                { name: "Inside The Five", location: "Perrysburg" },
+                { name: "Grape Leaf Diner", location: "Maumee" },
+                { name: "The Original Pancake House", location: "Westgate" },
+                { name: "Sunrise Skillet", location: "South Toledo" },
+                { name: "Hang Over Easy", location: "Sylvania" },
+                { name: "Marigold Cafe", location: "Old Orchard" },
+                { name: "Balance Grille", location: "Sylvania" },
+                { name: "The Whitehouse Inn", location: "Whitehouse" },
+                { name: "Doc Watson's", location: "Sylvania" },
+                { name: "Public House", location: "Perrysburg" },
+                { name: "Barry Bagels", location: "West Toledo" },
+                { name: "Monroe Street Diner", location: "Westgate" },
+                { name: "Schmucker's", location: "West Toledo" }
+            ],
+            dinner: [
+                { name: "The Dark Horse Social Club", location: "Downtown" },
+                { name: "Souk Mediterranean", location: "Downtown" },
+                { name: "Sabira", location: "Downtown" },
+                { name: "Hannon's Block", location: "Downtown" },
+                { name: "The Heights", location: "Downtown" },
+                { name: "Registry Bistro", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
+                { name: "Element 112", location: "Downtown" },
+                { name: "Claude's Prime Seafood", location: "Perrysburg" },
+                { name: "The Benchmark", location: "Perrysburg" },
+                { name: "Urban Pine Winery", location: "Maumee" },
+                { name: "Basil Pizza + Wine Bar", location: "Perrysburg" },
+                { name: "Barr's Public House", location: "Perrysburg" },
+                { name: "Grape Leaf", location: "Maumee" },
+                { name: "Inside The Five", location: "Perrysburg" },
+                { name: "El Vaquero", location: "Perrysburg" },
+                { name: "Georgio's Grill", location: "Sylvania" },
+                { name: "Deet's BBQ", location: "Maumee" },
+                { name: "Zia's", location: "West Toledo" },
+                { name: "Balance Pan-Asian Grille", location: "Sylvania" },
+                { name: "Grumpy's", location: "West Toledo" },
+                { name: "Nagoya Japanese Steakhouse", location: "Maumee" },
+                { name: "The Chop House", location: "Perrysburg" },
+                { name: "Real Seafood Company", location: "Downtown" }
+            ],
+            drinks: [
+                { name: "The Heights Rooftop", location: "Downtown" },
+                { name: "Bellwether at Toledo Spirits", location: "Downtown" },
+                { name: "The Wine Room Speakeasy", location: "Downtown" },
+                { name: "Brew House Downtown", location: "Downtown" },
+                { name: "Hannon's Block Speakeasy", location: "Downtown" },
+                { name: "Maumee Bay Brewing Co.", location: "Downtown" },
+                { name: "The Attic on Adams", location: "Downtown" },
+                { name: "Whiskey & The Wolf", location: "Downtown" },
+                { name: "Levi & Lilac's Whiskey Room", location: "Downtown" },
+                { name: "Red Moon", location: "Downtown" },
+                { name: "The Basement Geekeasy", location: "Downtown" },
+                { name: "Volstead Bar", location: "Downtown" },
+                { name: "Rabbit Hole", location: "Downtown" },
+                { name: "Toast and Tap", location: "Downtown" },
+                { name: "Peacock Cafe", location: "Downtown" },
+                { name: "Inside The Five", location: "Perrysburg" },
+                { name: "Urban Pine Winery", location: "Maumee" },
+                { name: "Inside The Five", location: "Sylvania" },
+                { name: "Black Frog Brewery", location: "Holland" },
+                { name: "The Casual Pint", location: "Perrysburg" },
+                { name: "Bier Stube", location: "Maumee" },
+                { name: "Bab's Underground", location: "Downtown" },
+                { name: "Earnest Brew Works", location: "Downtown" },
+                { name: "Farnsworth Cocktail Bar", location: "Downtown" }
+            ]
+        };
+
+        const colors = {
+            brunch: [
+                '#2d4a3e', '#3d5c4e', '#4a6b5d', '#1e3a2f',
+                '#354f44', '#2a4238', '#3f5e4f', '#1c362b',
+                '#385546', '#2f4a3d', '#436352', '#1f3c30',
+                '#2d4a3e', '#3d5c4e', '#4a6b5d', '#1e3a2f',
+                '#354f44', '#2a4238', '#3f5e4f', '#1c362b',
+                '#385546', '#2f4a3d', '#436352', '#1f3c30'
+            ],
+            dinner: [
+                '#4a2c2a', '#5c3a38', '#6b4846', '#3a1f1d',
+                '#523331', '#422625', '#5e3c3a', '#361c1a',
+                '#4e2f2d', '#482928', '#573634', '#3e2220',
+                '#4a2c2a', '#5c3a38', '#6b4846', '#3a1f1d',
+                '#523331', '#422625', '#5e3c3a', '#361c1a',
+                '#4e2f2d', '#482928', '#573634', '#3e2220'
+            ],
+            drinks: [
+                '#2a3a52', '#374a62', '#445a72', '#1e2e42',
+                '#304050', '#263646', '#3c4c5c', '#1a2a3a',
+                '#344454', '#2e3e4e', '#405060', '#222f3f',
+                '#2a3a52', '#374a62', '#445a72', '#1e2e42',
+                '#304050', '#263646', '#3c4c5c', '#1a2a3a',
+                '#344454', '#2e3e4e', '#405060', '#222f3f'
+            ]
+        };
+
+        let currentCategory = 'brunch';
+        let isSpinning = false;
+        let currentRotation = 0;
+
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spinBtn');
+        const spinAgainBtn = document.getElementById('spinAgainBtn');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const resultName = document.getElementById('resultName');
+        const resultLocation = document.getElementById('resultLocation');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+
+        function createWheel(category) {
+            wheel.innerHTML = '';
+            const items = venues[category];
+            const segmentAngle = 360 / items.length;
+            const colorPalette = colors[category];
+
+            items.forEach((item, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                const rotation = index * segmentAngle - 90;
+                segment.style.transform = `rotate(${rotation}deg) skewY(-${90 - segmentAngle}deg)`;
+                segment.style.backgroundColor = colorPalette[index % colorPalette.length];
+
+                const text = document.createElement('span');
+                text.style.transform = `skewY(${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)`;
+                text.textContent = item.name;
+                segment.appendChild(text);
+
+                wheel.appendChild(segment);
+            });
+        }
+
+        function spin() {
+            if (isSpinning) return;
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+            resultDisplay.classList.add('hidden');
+
+            const items = venues[currentCategory];
+            const segmentAngle = 360 / items.length;
+
+            const spins = 5 + Math.random() * 3;
+            const randomAngle = Math.random() * 360;
+            const totalRotation = currentRotation + (spins * 360) + randomAngle;
+
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+            currentRotation = totalRotation;
+
+            setTimeout(() => {
+                const normalizedAngle = (360 - (totalRotation % 360) + 90) % 360;
+                const winnerIndex = Math.floor(normalizedAngle / segmentAngle) % items.length;
+                const winner = items[winnerIndex];
+
+                resultName.textContent = winner.name;
+                resultLocation.textContent = winner.location;
+                resultDisplay.classList.remove('hidden');
+
+                isSpinning = false;
+                spinBtn.disabled = false;
+            }, 4000);
+        }
+
+        function changeCategory(category) {
+            currentCategory = category;
+            currentRotation = 0;
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+
+            setTimeout(() => {
+                wheel.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)';
+            }, 50);
+
+            createWheel(category);
+            resultDisplay.classList.add('hidden');
+
+            categoryBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+        }
+
+        spinBtn.addEventListener('click', spin);
+        spinAgainBtn.addEventListener('click', spin);
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => changeCategory(btn.dataset.category));
+        });
+
+        createWheel('brunch');
+    </script>
+</body>
+</html>
