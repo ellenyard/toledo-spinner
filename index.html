@@ -19,16 +19,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
             color: #fff;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -37,9 +36,9 @@
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #8892b0;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -47,19 +46,19 @@
 
         .category-selector {
             display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
+            gap: 10px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .category-btn {
-            padding: 14px 32px;
+            padding: 12px 28px;
             border: 2px solid #d4af37;
             background: transparent;
             color: #d4af37;
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -80,18 +79,18 @@
 
         .wheel-container {
             position: relative;
-            width: 500px;
-            height: 500px;
-            margin-bottom: 40px;
+            width: 380px;
+            height: 380px;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 500px) {
             .wheel-container {
-                width: 320px;
-                height: 320px;
+                width: 300px;
+                height: 300px;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
         }
 
@@ -102,10 +101,10 @@
             position: relative;
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
             box-shadow:
-                0 0 0 8px #d4af37,
-                0 0 0 12px #1a1a2e,
-                0 0 40px rgba(212, 175, 55, 0.3),
-                inset 0 0 30px rgba(0, 0, 0, 0.3);
+                0 0 0 6px #d4af37,
+                0 0 0 10px #1a1a2e,
+                0 0 30px rgba(212, 175, 55, 0.3);
+            overflow: hidden;
         }
 
         .wheel-segment {
@@ -115,54 +114,64 @@
             left: 50%;
             top: 50%;
             transform-origin: 0% 0%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 15px;
-            font-size: 0.55rem;
-            font-weight: 500;
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             overflow: hidden;
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+
+        .wheel-segment-inner {
+            position: absolute;
+            left: -100%;
+            top: -100%;
+            width: 200%;
+            height: 200%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8px;
         }
 
         .wheel-segment span {
-            transform: rotate(7.5deg);
-            text-align: right;
-            max-width: 120px;
-            line-height: 1.2;
-            font-size: 0.6rem;
+            color: #fff;
+            font-size: 0.5rem;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            max-height: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 500px) {
             .wheel-segment span {
-                font-size: 0.45rem;
-                max-width: 80px;
+                font-size: 0.4rem;
+                max-height: 100px;
             }
         }
 
         .pointer {
             position: absolute;
-            top: -20px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 40px solid #d4af37;
+            border-left: 16px solid transparent;
+            border-right: 16px solid transparent;
+            border-top: 32px solid #d4af37;
             z-index: 10;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
 
-        .center-circle {
+        .center-btn {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
             border-radius: 50%;
             display: flex;
@@ -170,78 +179,69 @@
             justify-content: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             z-index: 5;
-        }
-
-        .center-circle::after {
-            content: '419';
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .spin-btn {
-            padding: 18px 60px;
-            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
-            border: none;
-            color: #1a1a2e;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             cursor: pointer;
+            border: none;
             transition: all 0.3s ease;
-            border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #1a1a2e;
         }
 
-        .spin-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
+        .center-btn:hover:not(:disabled) {
+            transform: translate(-50%, -50%) scale(1.05);
             box-shadow: 0 6px 30px rgba(212, 175, 55, 0.5);
         }
 
-        .spin-btn:disabled {
-            opacity: 0.6;
+        .center-btn:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
         }
 
+        @media (max-width: 500px) {
+            .center-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 0.85rem;
+            }
+        }
+
         .result-container {
-            margin-top: 40px;
             text-align: center;
-            min-height: 120px;
+            min-height: 100px;
         }
 
         .result-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #8892b0;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .result-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: #d4af37;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .result-location {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #ccd6f6;
             font-weight: 300;
         }
 
         .spin-again-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
+            margin-top: 15px;
+            padding: 10px 25px;
             background: transparent;
             border: 2px solid #d4af37;
             color: #d4af37;
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -259,8 +259,8 @@
         }
 
         .footer {
-            margin-top: 40px;
-            font-size: 0.75rem;
+            margin-top: 20px;
+            font-size: 0.7rem;
             color: #4a5568;
             text-align: center;
         }
@@ -279,10 +279,8 @@
     <div class="wheel-container">
         <div class="pointer"></div>
         <div class="wheel" id="wheel"></div>
-        <div class="center-circle"></div>
+        <button class="center-btn" id="spinBtn">SPIN</button>
     </div>
-
-    <button class="spin-btn" id="spinBtn">Spin</button>
 
     <div class="result-container">
         <div id="resultDisplay" class="hidden">
@@ -422,17 +420,32 @@
             const segmentAngle = 360 / items.length;
             const colorPalette = colors[category];
 
+            // Create conic gradient for seamless segments
+            let gradientStops = [];
+            items.forEach((item, index) => {
+                const startAngle = index * segmentAngle;
+                const endAngle = (index + 1) * segmentAngle;
+                const color = colorPalette[index % colorPalette.length];
+                gradientStops.push(`${color} ${startAngle}deg ${endAngle}deg`);
+            });
+            wheel.style.background = `conic-gradient(from -90deg, ${gradientStops.join(', ')})`;
+
+            // Add text labels
             items.forEach((item, index) => {
                 const segment = document.createElement('div');
                 segment.className = 'wheel-segment';
-                const rotation = index * segmentAngle - 90;
-                segment.style.transform = `rotate(${rotation}deg) skewY(-${90 - segmentAngle}deg)`;
-                segment.style.backgroundColor = colorPalette[index % colorPalette.length];
+                const rotation = index * segmentAngle;
+                segment.style.transform = `rotate(${rotation}deg)`;
+                segment.style.clipPath = `polygon(0 0, 100% 0, 100% ${Math.tan(segmentAngle * Math.PI / 360) * 100}%)`;
+
+                const inner = document.createElement('div');
+                inner.className = 'wheel-segment-inner';
+                inner.style.transform = `rotate(${segmentAngle / 2}deg)`;
 
                 const text = document.createElement('span');
-                text.style.transform = `skewY(${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)`;
                 text.textContent = item.name;
-                segment.appendChild(text);
+                inner.appendChild(text);
+                segment.appendChild(inner);
 
                 wheel.appendChild(segment);
             });
