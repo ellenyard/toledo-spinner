@@ -210,8 +210,7 @@
         }
 
         .result-link:hover .result-name {
-            text-decoration: underline;
-            text-underline-offset: 4px;
+            text-decoration-color: #d4af37;
         }
 
         .result-link:hover .result-location::after {
@@ -225,6 +224,14 @@
             font-weight: 600;
             color: #d4af37;
             margin-bottom: 4px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .result-name::after {
+            content: ' ↗';
+            font-size: 0.9rem;
         }
 
         .result-location {
